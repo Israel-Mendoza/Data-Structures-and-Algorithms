@@ -15,7 +15,7 @@ class LinkedList:
         self.length: int = 1
 
     def print_list_items(self) -> None:
-        temp: Node | None = self.head
+        temp: Node | None = self.head  # Creating a temp node to hold each node.
         print("-" * 50)
         print(f"List's length: {self.length}")
         print(
@@ -23,13 +23,15 @@ class LinkedList:
         )
         print(f"Tail: '{self.tail.value if self.tail is not None else 'None'}'.")
         print("List's contents: [ ", end="")
-        while temp:
+        while temp:  # As long as we don't reach a "dead" node.
             print(f"{temp.value} ", end="")
             temp = temp.next
         print("]")
         print("-" * 50)
 
     def append(self: LinkedList, value: object) -> bool:
+        # Edge case:
+        # 1. The list is empty.
         new_node: Node = Node(value)
         if self.head is None:  # If the LinkedList is empty:
             self.head = new_node
@@ -44,23 +46,24 @@ class LinkedList:
         # Edge cases:
         # 1. The list is empty.
         # 2. The list has one single item.
-        if self.head is None:
+        if self.head is None:  # If the list is empty:
             return None
-        elif self.length == 1:
-            temp_node = self.tail
-            self.head = None
-            self.tail = None
-            self.length = 0
+        elif self.length == 1:  #  If we have one single item in the list:
+            temp_node = self.tail  # Keeping a copy of the tail.
+            self.head = None  # Making the list empty.
+            self.tail = None  # Making the list empty.
+            self.length = 0  # Making the list empty.
             return temp_node
         else:
-            temp_node: Node | None = self.head
-            return_node: Node | None
+            temp_node: Node | None = self.head  # Holding the iteration.
+            return_node: Node | None  # Placeholder for the Node that is to be returned.
             while True:
+                # If we've found the second-to-last node:
                 if temp_node.next.next is None:
                     return_node = temp_node.next  # Save the reference
-                    self.length -= 1  # Decrease the length of the list
                     self.tail = temp_node  # Move the tail's reference
                     temp_node.next = None  # Make the current node the last one
+                    self.length -= 1  # Decrease the length of the list
                     return return_node
                 else:
                     temp_node = temp_node.next
