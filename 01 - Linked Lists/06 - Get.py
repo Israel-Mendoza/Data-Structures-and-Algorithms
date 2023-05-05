@@ -104,7 +104,7 @@ class LinkedList:
         return popped_node
 
     def get(self: LinkedList, index: int) -> Node | None:
-        if self.length == 0 or index > self.length or index < 0:
+        if index > self.length or index < 0:
             return None
         temp_node: Node | None = self.head
         for _ in range(index):

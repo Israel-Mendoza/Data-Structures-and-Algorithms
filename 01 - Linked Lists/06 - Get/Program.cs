@@ -157,7 +157,7 @@ class MyLinkedList<T>
 
     public Node<T>? Get(int index)
     {
-        if (Length == 0 || index >= Length || index < 0)
+        if (index >= Length || index < 0)
             return null;
         Node<T>? tempNode = Head;
         for (var i = 0; i < index; i++)
