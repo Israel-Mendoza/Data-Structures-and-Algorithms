@@ -31,6 +31,7 @@ class LinkedList:
             self.tail.next = new_node
             self.tail = new_node
         self.length += 1
+        return True
 
     def pop(self):
         if self.length == 0:
@@ -47,3 +48,75 @@ class LinkedList:
         self.tail = temp_node
         self.tail.next = None
         return to_be_returned
+
+    def prepend(self, value):
+        new_node = Node(value)
+        if self.length == 0:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            new_node.next = self.head
+            self.head = new_node
+        self.length += 1
+        return True
+
+    def pop_first(self):
+        if self.length == 0:
+            return None
+        temp_node = self.head
+        if self.length == 1:
+            self.head = None
+            self.tail = None
+        else:
+            self.head = temp_node.next
+            temp_node.next = None
+        self.length -= 1
+        return temp_node
+    
+    def get(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        temp = self.head
+        for _ in range(index):
+            temp = temp.next
+        return temp
+    
+    def set_value(self, index, value):
+        temp_node = self.get(index)
+        if temp_node:
+            temp_node.value = value
+            return True
+        return False
+    
+    def insert(self, index, value):
+        if index < 0 or index > self.length:
+            return False
+        if index == 0:
+            return self.prepend(value)
+        if index == self.length:
+            return self.append(value)
+        new_node = Node(value)
+        previous_node = self.get(index - 1)
+        new_node.next = previous_node.next
+        previous_node.next = new_node
+        self.length += 1
+        return True
+        
+    def remove(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        if index == 0:
+            return self.pop_first()
+        if index == self.length - 1:
+            return self.pop()
+        temp_1 = self.head
+        temp_2 = self.head
+        for _ in range(index):
+            temp_2 = temp_1
+            temp_1 = temp_1.next
+        temp_2.next = temp_1.next
+        temp_1.next = None
+        self.length -= 1
+        return temp_1
+
+    
